@@ -340,6 +340,6 @@ document.getElementsByTagName("aside")[0].addEventListener("click", function () 
         })
     }
 })
-document.querySelector(".calendars").addEventListener("click", function () {
+document.querySelector(".profile>.calendars").addEventListener("click", function () {
     window.location.assign("new/lv.html")
 })
