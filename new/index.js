@@ -341,5 +341,5 @@ document.getElementsByTagName("aside")[0].addEventListener("click", function () 
     }
 })
 document.querySelector(".calendars").addEventListener("click", function () {
-    window.location.assign("lv.html")
+    window.location.assign("new/lv.html")
 })
