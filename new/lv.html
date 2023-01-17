@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .calendar {
+        width: 99.6%;
+        height: fit-content;
+        padding-bottom: 2px;
+        border: 1px solid black;
+        /* margin-bottom: 10px; */
+    }
+
+    .today {
+        background-color: blue;
+        color: white;
+    }
+
+    span {
+        display: inline-block;
+        width: 37px;
+        height: 20px;
+        padding-left: 6px;
+        padding-top: 4px;
+        font-size: large;
+        font-weight: bold;
+    }
+
+    .spans:first-of-type {
+        display: flex;
+        height: 30px;
+        justify-content: space-between;
+    }
+
+    .spans {
+        display: flex;
+        height: 20px;
+        background-color: white;
+        margin-top: 6px;
+        padding-bottom: 10px;
+        justify-content: space-between;
+    }
+
+    section {
+        height: 40px;
+        width: 100%;
+        background-color: blue;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #section {
+        color: white;
+        font-size: x-large;
+        font-weight: bolder;
+        font-family: sans-serif;
+        text-transform: uppercase;
+        width: fit-content;
+    }
+
+    .spans>span:hover {
+        border: 1px solid blue;
+        width: 35px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .spans>span {
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .spans>span:first-of-type {
+        color: red;
+    }
+
+    button>span {
+        width: 14px;
+        height: 0.4px;
+        padding: 1px 2px;
+        margin: 0;
+        background-color: white;
+    }
+
+    button {
+        width: 45px;
+        height: 100%;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 3px solid rgba(76, 180, 135, 0.938);
+    }
+
+    button>img {
+        height: 80%;
+    }
+
+    button:last-of-type {
+        /* rotate: 180deg; */
+        transform: rotate(180deg);
+    }
+
+    div.week {
+        padding-top: 0;
+    }
+
+    #year_date {
+        color: white;
+        font-family: sans-serif;
+        font-size: x-large;
+    }
+
+    div.whole_calendar>div {
+        /* width: 150px; */
+        width: 30.1%;
+        height: max-content;
+        margin: 3px 4px;
+        border: 1px solid black;
+        padding: 0 3px 3px 3px;
+    }
+
+    div.whole_calendar {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+        width: 498px;
+    }
+
+    .calendarContainer {
+        width: fit-content;
+        height: fit-content;
+        border: 1px solid black;
+    }
+
+    div.top {
+        width: 100%;
+        height: 15px;
+        margin-top: 0.5px;
+        border-bottom: 1px solid bl;
+    }
+
+    article {
+        text-align: center;
+        background-color: rgb(63, 63, 204);
+        color: white;
+        font-family: sans-serif;
+        margin: 0 -3px 0 -3px;
+    }
+
+    .top {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+    }
+
+    .top>span {
+        font-size: x-small;
+        width: fit-content;
+        padding: 0;
+    }
+
+    div#monthdates {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 20px;
+        justify-items: end;
+        align-content: flex-start;
+        column-gap: 3px;
+    }
+
+    div#monthdates>span {
+        display: inline-block;
+        width: 90%;
+        text-align: end;
+        font-weight: lighter;
+        font-size: 0.7rem;
+    }
+
+    .top :first-child {
+        color: red;
+    }
+
+    #monthdates>.today {
+        background-color: transparent;
+        color: rgba(78, 189, 142, 0.938);
+    }
+
+    .more_information {
+        width: 100%;
+        height: 50px;
+        background: violet;
+    }
+
+    .more_information>aside {
+        color: white;
+        margin-left: 10px;
+        font-family: sans-serif;
+    }
+
+    .more_information>aside:last-of-type {
+        float: left;
+        margin-top: 5px;
+    }
+
+    .more_information>aside:first-of-type {
+        float: right;
+        margin: 5px 10px 0 0;
+        font-size: xx-large;
+        font-weight: bolder;
+    }
+
+    .more_information>img {
+        /* rotate: -90deg; */
+        transform: rotate(-90deg);
+        width: 13px;
+        float: right;
+        margin: 6px 4px 0 0;
+    }
+
+    .yearModal {
+        width: 100px;
+        position: fixed;
+        height: 83px;
+        border-radius: 3%;
+        overflow-y: scroll;
+        margin: -18px 0px 0 390px;
+        display: none;
+        animation-name: animateYear;
+        animation-duration: 0.7s;
+    }
+
+    .yearin {
+        width: 100%;
+        background-color: rgb(62, 62, 214);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column;
+        overflow: visible;
+    }
+
+    .yearModal::-webkit-scrollbar {
+        display: none;
+    }
+
+    .yearin>span {
+        background-color: rgb(196, 143, 196);
+        display: inline-block;
+        width: 93%;
+        text-align: center;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+
+    aside>span#time {
+        display: initial;
+        font-weight: 100;
+        color: blue;
+    }
+
+    #changeYear:hover {
+        opacity: 0.5;
+        width: 15px;
+    }
+
+    .longestMonth {
+        height: 140px;
+    }
+
+    @keyframes animateYear {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        div.calendarContainer {
+            width: 100%;
+        }
+
+        .calendar {
+            width: 99.5vw;
+        }
+
+        div.whole_calendar {
+            width: 100%;
+        }
+
+        div.whole_calendar>div {
+            width: 28.87%;
+        }
+
+        div#monthdates {
+            column-gap: 1px;
+        }
+
+        div#monthdates>span {
+            padding-left: 1px;
+        }
+        .top > span{
+            width: 0.9em;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            -ms-text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    .more_information>aside:last-of-type {
+        margin-left: 0px;
+    }
+    aside>span#time{
+        font-weight: 400;
+    }
+}
+</style>
+
+<body>
+    <div class="calendarContainer">
+        <div class="calendar">
+            <section>
+                <button id="direction"><img src="month.png" alt="arrLeft">
+                </button>
+                <span id="section"></span>
+                <span id="year_date"></span>
+                <button id="direction"><img src="month.png" alt="arrRight">
+                </button>
+            </section>
+            <div class="spans">
+                <span>Sun</span>
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+            </div>
+            <div class="spans dates">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="spans dates">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="spans dates">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="spans dates">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="spans dates">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="spans dates week">
+                <span class="determinor"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="more_information">
+            <img src="year.png" id="changeYear">
+            <aside>2023</aside>
+            <div class="yearModal">
+                <div class="yearin"></div>
+            </div>
+            <aside><span id="time">11.00 AM</span> : Proggramming <br> <span id="time">08.00 PM </span> : Learning
+            </aside>
+        </div>
+        <div class="whole_calendar">
+            <div id="january">
+                <article>JANUARY</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="february">
+                <article>FEBRUARY</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="march">
+                <article>MARCH</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="april">
+                <article>APRIL</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="may">
+                <article>MAY</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="june">
+                <article>JUNE</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="july">
+                <article>JULY</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="august">
+                <article>AUGUST</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="september">
+                <article>SEPTEMBER</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="october">
+                <article>OCTOBER</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="november">
+                <article>NOVEMBER</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+            <div id="december">
+                <article>DECEMBER</article>
+                <div class="top">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div id="monthdates">
+                </div>
+            </div>
+        </div>
+</body>
+<script>
+    let currentYear = new Date().getFullYear(),
+        nextMonth = new Date(currentYear.toString()),
+        rightCounter = new Date().getMonth(),
+        yearModal = document.getElementsByClassName("yearModal")[0],
+        row1, row2, row3, row4;
+    window.onload = function () {
+        updateMonth();
+        checkMonth()
+    }
+    function updateMonth() {
+        let date = new Date(new Date().setDate(1)),
+            day = date.getDay(),
+            dates = []
+        for (let j = 1; j < 32; j++) {
+            dates.push(j)
+        }
+        let span = document.querySelectorAll("div.spans>span")
+        for (let i = 7; i < span.length - day; i++) {
+            span[i + day].textContent = dates[i - 7];
+            document.getElementById("section").innerText = date.toLocaleString('default', { month: 'long' })
+            let today = new Date().getDate();
+        }
+        document.getElementsByTagName("article")[rightCounter].parentElement.style.border = "1px solid violet";
+        document.getElementsByTagName("article")[rightCounter].style.backgroundColor = "rgba(78, 189, 142, 0.938)";
+        updateCalendar(currentYear);
+
+    }
+    document.getElementsByTagName("button")[1].addEventListener("click", function () {
+        let nxtMonth = nextMonth.setMonth(rightCounter + 1),
+            date = new Date(nextMonth.setDate(1)),
+            day = date.getDay(),
+            dates = [],
+            no_days = new Date(currentYear, rightCounter + 2, 0).getDate();
+        for (let j = 1; j <= no_days; j++) {
+            dates.push(j)
+        }
+        let spanItems = document.querySelectorAll("div.dates>span")
+        spanItems.forEach(span => {
+            span.textContent = ''
+        })
+
+        for (let i = 0; i < spanItems.length - day; i++) {
+            spanItems[i + day].textContent = dates[i];
+        }
+        document.getElementById("section").innerText = date.toLocaleString('default', { month: 'long' })
+        rightCounter = rightCounter + 1;
+        if (rightCounter > 11) {
+            rightCounter = 0
+            currentYear = currentYear + 1
+        }
+        checkMonth()
+    })
+    document.getElementsByTagName("button")[0].addEventListener("click", function () {
+        let nxtMonth = nextMonth.setMonth(rightCounter - 1),
+            date = new Date(nextMonth.setDate(1)),
+            day = date.getDay(),
+            dates = [],
+            no_days = new Date(currentYear, rightCounter, 0).getDate();
+        for (let j = 1; j <= no_days; j++) {
+            dates.push(j)
+        }
+        let spanItems = document.querySelectorAll("div.dates>span");
+        spanItems.forEach(span => {
+            span.textContent = '';
+        })
+
+        for (let i = 0; i < spanItems.length - day; i++) {
+            spanItems[i + day].textContent = dates[i];
+        }
+        document.getElementById("section").innerText = date.toLocaleString('default', { month: 'long' })
+        rightCounter = rightCounter - 1;
+        if (rightCounter == -1) {
+            rightCounter = 11
+            currentYear = currentYear - 1
+        }
+        checkMonth()
+    })
+    function checkMonth() {
+        if (document.getElementsByClassName("determinor")[0].innerText !== "") {
+            document.querySelector("div.week").style.display = "flex";
+        }
+        else { document.querySelector("div.week").style.display = "none"; }
+        if (document.getElementById("section").innerText == new Date().toLocaleString('default', { month: 'long' }).toUpperCase() && currentYear == new Date().getFullYear()) {
+            document.querySelectorAll("div.dates>span")[new Date().getDate() + new Date(new Date().setDate(1)).getDay() - 1].classList.add("today")
+        }
+        else { document.querySelectorAll("div.dates>span")[new Date().getDate() + new Date(new Date().setDate(1)).getDay() - 1].classList.remove("today") }
+        document.getElementById("year_date").innerText = currentYear;
+    }
+
+    document.getElementById("changeYear").addEventListener("click", function () {
+        let listOfMonths = 1970, spanNo;
+        while (listOfMonths <= 2200) {
+            let span = document.createElement("span");
+            span.textContent = listOfMonths;
+            document.getElementsByClassName("yearin")[0].append(span)
+            span.onclick = function () {
+                selectedYear = this.textContent;
+                document.querySelector(".more_information > aside").textContent = span.textContent;
+                updateCalendar(selectedYear)
+            }
+            listOfMonths++;
+            if (span.textContent == 2023) {
+                spanNo = span;
+                spanNo.style.backgroundColor = "violet"
+            }
+        }
+        yearModal.style.display = "block"
+        spanNo.scrollIntoView()
+        yearModal.scrollBy(0, -30)
+        document.onclick = function (e) {
+            if (e.target.id !== "yearModal" && e.target.id !== "changeYear") {
+                yearModal.style.display = "none"
+            }
+        }
+        window.onscroll = function () { yearModal.style.display = "none" }
+    })
+    function updateCalendar(thisYear) {
+        let months = [],
+            i = 0;
+        while (i < 12) {
+            let days = new Date(thisYear, i + 1, 0).getDate();
+            months.push(days)
+            i++;
+        }
+        months.forEach((element, index) => {
+            let daysOfMonth = [];
+            for (let j = 1; j <= element; j++) {
+                daysOfMonth.push(j);
+            }
+            months[index] = daysOfMonth
+        });
+        let monthdates = document.querySelectorAll("#monthdates");
+        for (let no_of_months = 0; no_of_months < monthdates.length; no_of_months++) {
+            monthdates[no_of_months].classList.remove("longestMonth")
+            monthdates[no_of_months] = months[no_of_months];
+            monthdates[no_of_months].innerHTML = "";
+            let thisMonth = new Date(new Date().setMonth(no_of_months)),
+                startDay = new Date(thisYear, no_of_months, 1).getDay(),
+                sunday = (7 - startDay),
+                spacs = monthdates[no_of_months].children;
+            if (sunday === 7) {
+                sunday = 0
+            }
+            for (let no = 0; no < months[no_of_months].length; no++) {
+                let spanEl = document.createElement("span");
+                spanEl.textContent = months[no_of_months][no]
+                if (months[no_of_months][no] === 1) {
+                    spanEl.style.gridColumn = startDay + 1
+                }
+                if (no == sunday) {
+                    spanEl.style.color = 'red'
+                    spanEl.style.textAlign = 'center'
+                    sunday += 7
+                }
+                monthdates[no_of_months].appendChild(spanEl)
+            }
+        }
+        monthdates[new Date().getMonth()].children[new Date().getDate() - 1].classList.add("today")
+        row1 = Math.max(monthdates[0].clientHeight, monthdates[1].clientHeight, monthdates[2].clientHeight);
+        row2 = Math.max(monthdates[3].clientHeight, monthdates[4].clientHeight, monthdates[5].clientHeight);
+        row3 = Math.max(monthdates[6].clientHeight, monthdates[7].clientHeight, monthdates[8].clientHeight);
+        row4 = Math.max(monthdates[9].clientHeight, monthdates[10].clientHeight, monthdates[11].clientHeight);
+        for (let i = 0, j = 3, k = 6, l = 9; i < 3, j < 6, k < 9, l < 12; i++, j++, k++, l++) {
+            if (row1 > 116) {
+                monthdates[i].classList.add("longestMonth");
+            }
+            if (row2 > 116) {
+                monthdates[j].classList.add("longestMonth");
+            }
+            if (row3 > 116) {
+                monthdates[k].classList.add("longestMonth");
+            }
+            if (row4 > 116) {
+                monthdates[l].classList.add("longestMonth");
+            }
+        }
+    }
+</script>
+
+</html>

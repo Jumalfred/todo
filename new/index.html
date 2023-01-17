@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="To_do icon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div id="todo">
+        <div id="item_details">
+            <div class="modal_2">
+                <h1 id="item_name">
+                    Programming
+                </h1>
+                <div id="details">
+                    <h2 id="null">Description</h2>
+                    <p id="description">I would like to learn more through coding and debbuging of my codes to check the
+                        errors available and how to solve them out</p>
+                    <h2 id="null">Task Informations</h2>
+                    <p id="created_date">created on Dec 18 2022 at 1800hrs</p>
+                    <p id="expiry_date">Expires on Jan 5 2023 at 1800hrs</p>
+                    <p id="time_rem">Time remaining is 2days 23hrs 13minutes 4seconds. <br> You can still make it.</p>
+                    <button class="exit_btn">Exit</button>
+                </div>
+            </div>
+        </div>
+        <section>
+            <aside>
+                <div class="aside_child"></div>
+                <div class="aside_child"></div>
+                <div class="aside_child"></div>
+            </aside>TO DO LIST
+            <div id="modal_3">
+                <div class="profile">
+                    <button class="li add">Add New Task</button>
+                    <button class="li calendars">Calendar</button>
+                    <button class="li settings">Settings</button>
+                    <button class="li help">Help</button>
+                </div>
+            </div>
+        </section>
+        <div id="modal_4">
+            <div id="addpage">
+                <span id="exitAdd">x</span>
+                <h2>NEW TASK</h2>
+                <input type="text" id="input" placeholder="Task">
+                <input type="text" id="describe" placeholder="Description">
+                <input type="text" id="created_dat" placeholder="Deadline" onfocus="(this.type = 'datetime-local')"
+                    onblur="if(this.value==''){this.type= 'text'}">
+                <select name="use" id="use">
+                    <option value="Personal">Personal</option>
+                    <option value="Business">Business</option>
+                </select>
+                <button id="btn">ADD</button>
+            </div>
+        </div>
+        <div id="modal">
+            <div class="modal">
+                <input type="text" name="" id="change">
+                <button id="cancel">Cancel</button>
+                <button id="upd">Update</button>
+            </div>
+        </div>
+        <p id="task">Tasks
+            <label for="sort">
+                Sort :
+                <select name="sort" id="select">
+                    <option value="Time">Normal</option>
+                    <option value="Time">Time</option>
+                    <option value="Day">Day/Date</option>
+                    <option value="Marked">Marked</option>
+                </select>
+            </label>
+        </p>
+        <ol>
+            <li data-no="0">
+                <input type="checkbox" name="" id="checkbox">
+                <article>Programming</article>
+                <div id="date">Mon Dec 19 2022</div>
+                <div id="time">6:42:22 PM</div>
+            </li>
+            <li data-no="1">
+                <input type="checkbox" name="" id="checkbox">
+                <article>Learning</article>
+                <div id="date">Sun Dec 18 2022</div>
+                <div id="time">6:22:02 PM</div>
+            </li>
+            <li data-no="2">
+                <input type="checkbox" name="" id="checkbox">
+                <article>Swimming and skarting</article>
+                <div id="date">Mon Dec 19 2022</div>
+                <div id="time">4:12:22 PM</div>
+            </li>
+        </ol>
+        <span id="logo">© <span id="year"></span> JASDEs Solutions</span>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
