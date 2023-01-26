@@ -412,7 +412,7 @@
             <img src="year.png" id="changeYear">
             <aside>2023</aside>
             <div class="yearModal">
-                <div class="yearin"></div>
+                <div class="yearin">nv   n</div>
             </div>
             <aside><span id="time">11.00 AM</span> : Proggramming <br> <span id="time">08.00 PM </span> : Learning
             </aside>
@@ -679,6 +679,7 @@
     }
 
     document.getElementById("changeYear").addEventListener("click", function () {
+        console.log("clicked")
         let listOfMonths = 1970, spanNo;
         while (listOfMonths <= 2200) {
             let span = document.createElement("span");
