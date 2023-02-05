@@ -605,7 +605,8 @@
         let date = new Date(new Date().setDate(1)),
             day = date.getDay(),
             dates = []
-        for (let j = 1; j < 32; j++) {
+            no_days = new Date(currentYear, rightCounter+1, 0).getDate();
+        for (let j = 1; j <= no_days; j++) {
             dates.push(j)
         }
         let span = document.querySelectorAll("div.spans>span")
